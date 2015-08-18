@@ -4,7 +4,25 @@ require 'data_mapper'
 
 class Server < Sinatra::Base
 
- get '/' do
+configure do
+  enable :sessions
+end
+
+helpers do
+  def firstname
+    session[:identity] ? session[:identity] : 'Hello stranger'
+  end
+end
+
+before '/secure/*' do
+  unless session[:identity]
+    session[:previous_url] = request.path
+    @error = 'Sorry, you need to be logged in to visit ' + request.path
+    halt erb(:login_form)
+  end
+end
+
+get '/' do
   erb :index
 end
 
