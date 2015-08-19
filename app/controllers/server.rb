@@ -1,5 +1,7 @@
 require 'sinatra/base'
 require 'data_mapper'
+require 'bcrypt'
+#require 'sinatra_warden'
 
 
 class Server < Sinatra::Base
@@ -17,13 +19,38 @@ get '/login/form' do
 end
 
 get '/signup/form' do
+  User.all.destroy
   erb :signup_form
 end
 
+
 get '/dashboard' do
-  @tasks = Task.all(:order => :created.desc)
+  user = User.first(:email => session[:email])
+  if user.nil?
+    redirect '/'
+  end
+  @current_user = user
+  @tasks = user.tasks
   redirect'/new/task' if @tasks.empty?
 	erb :dashboard
+end
+
+post '/login/attempt' do
+  user = User.first(:email => params[:email])
+  p user
+  p user.firstname
+  p user.password
+
+  if !user.nil?
+    p "we'v gotten here"
+    if user[:password] == BCrypt::Engine.hash_secret(params[:password], user[:salt])
+      p user
+      session[:email] = user[:email]
+      redirect '/dashboard'
+    end
+  end
+
+  redirect '/'
 end
 
 get '/new/task' do
@@ -31,13 +58,19 @@ get '/new/task' do
 	erb :new_task
 end
 
+
+
 post '/signup/form' do
-  User.create(:firstname => params[:firstname], :lastname => params[:lastname], :email => params[:email], :password => params[:password], :created => Time.now)
+  password_salt = BCrypt::Engine.generate_salt
+  password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
+  User.create(:firstname => params[:firstname], :lastname => params[:lastname],:email => params[:email],:password => password_hash,:salt=>password_salt,:created => Time.now)
   redirect '/dashboard'
 end
 
 post '/new/task' do
-	Task.create(:todo => params[:todo], :created => Time.now)
+  user = User.first(:email => session[:email])
+  p params[:todo]
+	Task.create(:todo => params[:todo],:done => false,:created => Time.now,:user_id => user[:id])
 	redirect '/dashboard'
 end
 

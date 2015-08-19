@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'data_mapper'
+require 'dm-sqlite-adapter'
+require 'bcrypt'
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/todoApp.db")
 class Task
@@ -15,16 +17,19 @@ end
 
 class User
   include DataMapper::Resource
+  include BCrypt
   property :id, Serial
   property :firstname, Text, :required => true
   property :lastname, Text, :required => true
-  property :email, Text, :required => true
-  property :password, Text, :required => true
+  property :email, Text, :required => true, :unique => true
+  property :password, Text, :required => true 
   property :created, DateTime
+  property :salt, Text
 
   has n, :tasks
-
-
 end
 
-DataMapper.finalize.auto_migrate!
+
+
+
+DataMapper.finalize.auto_upgrade!

@@ -11,4 +11,5 @@ group :development, :test do
  gem 'dm-sqlite-adapter'
  gem 'pry'
  gem 'thin'
+ #gem 'sinatra_warden'
 end

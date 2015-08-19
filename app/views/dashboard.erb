@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="/"><%= @current_user.firstname %></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -61,12 +61,11 @@
           <h2 class="sub-header">Section title</h2>
           <div class="table-responsive">
 
-
-              <ul id="todo-list" class="unstyled">
+            <ul id="todo-list" class="unstyled">
                 <% @tasks.each do |task| %>
                   <li id="<%= task[:id] %>">
                   <span class="task">
-                    <%= task[:done] ? "<del>#{task[:content]}</del>" : task[:content] %>
+                    <%= task[:done] ? "<del>#{task[:todo]}</del>" : task[:todo] %>
                   </span>
 
                   <span class="pull-right">
@@ -77,9 +76,7 @@
                   </li>
                 <% end %>
               </ul>
- 
-
-            
+              <a href="/new/task">Add new task</a>          
           </div>
 
     <!-- Bootstrap core JavaScript
