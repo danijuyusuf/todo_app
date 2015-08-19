@@ -4,23 +4,9 @@ require 'data_mapper'
 
 class Server < Sinatra::Base
 
-configure do
-  enable :sessions
-end
+enable :sessions
 
-helpers do
-  def firstname
-    session[:identity] ? session[:identity] : 'Hello stranger'
-  end
-end
 
-before '/secure/*' do
-  unless session[:identity]
-    session[:previous_url] = request.path
-    @error = 'Sorry, you need to be logged in to visit ' + request.path
-    halt erb(:login_form)
-  end
-end
 
 get '/' do
   erb :index
@@ -34,9 +20,25 @@ get '/signup/form' do
   erb :signup_form
 end
 
+get '/dashboard' do
+  @tasks = Task.all(:order => :created.desc)
+  redirect'/new/task' if @tasks.empty?
+	erb :dashboard
+end
+
+get '/new/task' do
+	@title = "Start by adding a todo task"
+	erb :new_task
+end
+
 post '/signup/form' do
   User.create(:firstname => params[:firstname], :lastname => params[:lastname], :email => params[:email], :password => params[:password], :created => Time.now)
-  redirect '/'
+  redirect '/dashboard'
+end
+
+post '/new/task' do
+	Task.create(:todo => params[:todo], :created => Time.now)
+	redirect '/dashboard'
 end
 
 

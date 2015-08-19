@@ -5,14 +5,11 @@ DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/todoApp.db")
 class Task
   include DataMapper::Resource
   property :id, Serial
-  property :task, Text, :required => true
+  property :todo, Text, :required => true
   property :done, Boolean, :required => true, :default => false
   property :created, DateTime
-  property :updated, DateTime
-
+  
   belongs_to :user
-
-
 end
 
 
@@ -30,4 +27,4 @@ class User
 
 end
 
-DataMapper.finalize.auto_upgrade!
+DataMapper.finalize.auto_migrate!
