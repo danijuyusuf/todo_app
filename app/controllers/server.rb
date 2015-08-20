@@ -8,8 +8,6 @@ class Server < Sinatra::Base
 
 enable :sessions
 
-
-
 get '/' do
   erb :index
 end
@@ -19,7 +17,6 @@ get '/login/form' do
 end
 
 get '/signup/form' do
-  User.all.destroy
   erb :signup_form
 end
 
@@ -31,18 +28,13 @@ get '/dashboard' do
   end
   @current_user = user
   @tasks = user.tasks
-  redirect'/new/task' if @tasks.empty?
 	erb :dashboard
 end
 
 post '/login/attempt' do
   user = User.first(:email => params[:email])
-  p user
-  p user.firstname
-  p user.password
 
   if !user.nil?
-    p "we'v gotten here"
     if user[:password] == BCrypt::Engine.hash_secret(params[:password], user[:salt])
       p user
       session[:email] = user[:email]
@@ -69,10 +61,39 @@ end
 
 post '/new/task' do
   user = User.first(:email => session[:email])
-  p params[:todo]
+  
 	Task.create(:todo => params[:todo],:done => false,:created => Time.now,:user_id => user[:id])
 	redirect '/dashboard'
 end
+
+post '/done' do
+  task = Task.first(:id => params[:id])
+  task.done = !task.done
+  task.save
+  content_type 'application/json'
+  value = task.done ? 'done' : 'not done'
+  { :id => params[:id], :status => value }.to_json
+end
+
+get '/delete/:id' do
+  @task = Task.first(:id => params[:id].to_i)
+  erb :delete_task
+end
+
+delete '/delete/:id' do
+  if params.has_key?("ok")
+    task = Task.first(:id => params[:id].to_i)
+    task.destroy
+    redirect '/dashboard'
+  else
+    redirect '/dashboard'
+  end
+end
+get '/logout' do
+  session.delete(:email)
+  erb "<div style= \"color: green\">Successfully logged out!</div>"
+end
+
 
 
   # start the server if ruby file executed directly

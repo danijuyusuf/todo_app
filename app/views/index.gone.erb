@@ -2,3 +2,8 @@
   Welcome, <%= user.name %><br />
   Hello! You're welcome to Agogo, your online task manager
 </h3>
+
+get '/signup/form' do
+  User.all.destroy
+  erb :signup_form
+end
