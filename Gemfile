@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'sinatra', require: 'sinatra/base'
 
@@ -11,5 +11,4 @@ group :development, :test do
  gem 'dm-sqlite-adapter'
  gem 'pry'
  gem 'thin'
- #gem 'sinatra_warden'
 end

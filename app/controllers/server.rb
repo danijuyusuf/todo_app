@@ -42,7 +42,7 @@ post '/login/attempt' do
     end
   end
 
-  redirect '/'
+  redirect '/login/form'
 end
 
 get '/new/task' do
@@ -56,6 +56,9 @@ post '/signup/form' do
   password_salt = BCrypt::Engine.generate_salt
   password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
   User.create(:firstname => params[:firstname], :lastname => params[:lastname],:email => params[:email],:password => password_hash,:salt=>password_salt,:created => Time.now)
+  
+  user = User.first(:email => params[:email])
+  session[:email] = user[:email]
   redirect '/dashboard'
 end
 
