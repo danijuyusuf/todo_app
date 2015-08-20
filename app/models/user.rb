@@ -8,6 +8,7 @@ class Task
   include DataMapper::Resource
   property :id, Serial
   property :todo, Text, :required => true
+  property :priority, Integer, :required => false
   property :done, Boolean, :required => true, :default => false
   property :created, DateTime
   

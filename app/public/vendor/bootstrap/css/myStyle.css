@@ -81,9 +81,12 @@ body {
 }
 .logout-button {
   position: absolute;
-  top: 50px;
-  left: 1120px;
+  top: 90px;
+  left: 1125px;
   font-style: candara;
   font-size: 14px;
 }
 
+.welcome {
+  font-family: 'Libre Baskerville', serif;
+}

@@ -27,7 +27,7 @@ get '/dashboard' do
     redirect '/'
   end
   @current_user = user
-  @tasks = user.tasks
+  @tasks = user.tasks(:order => :priority.desc)
 	erb :dashboard
 end
 
@@ -58,14 +58,18 @@ post '/signup/form' do
   User.create(:firstname => params[:firstname], :lastname => params[:lastname],:email => params[:email],:password => password_hash,:salt=>password_salt,:created => Time.now)
   
   user = User.first(:email => params[:email])
-  session[:email] = user[:email]
+
+  if !user.nil?
+    session[:email] = user[:email]
   redirect '/dashboard'
+end
+redirect '/signup/form'
 end
 
 post '/new/task' do
   user = User.first(:email => session[:email])
   
-	Task.create(:todo => params[:todo],:done => false,:created => Time.now,:user_id => user[:id])
+	Task.create(:todo => params[:todo],:done => false,:priority => params[:priority].to_i,:created => Time.now,:user_id => user[:id])
 	redirect '/dashboard'
 end
 

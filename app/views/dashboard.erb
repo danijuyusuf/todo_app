@@ -1,24 +1,26 @@
           <a href="/logout" class="btn btn-lg btn-default pull-right logout-button">Logout</a>
         <div id="dashboard">
-          <h3 class="welcome">Welcome, <%=@current_user.firstname%></h3>
+          <h3 class="welcome">Welcome, <%=@current_user.firstname%>!</h3>
           <h2 class="sub-header dashboard">Dashboard</h2>
           <div class="table-responsive">
 
-            <ul id="todo-list" class="unstyled">
+            <ol id="todo-list" class="unstyled">
                 <% @tasks.each do |task| %>
                   <li id="<%= task[:id] %>">
                   <span class="task">
                     <%= task[:done] ? "<del>#{task[:todo]}</del>" : task[:todo] %>
                   </span>
-
+                  (priority => <%=task[:priority] %>)
                   <span class="pull-right">
+
                     <a href="#" class="btn done"><%= task[:done] ? "Not done" : "Done"%></a>
                     <a href="/delete/<%= task[:id] %>" class="btn btn-danger">Delete</a>
                   </span>
                   
                   </li>
+                  <br />
                 <% end %>
-              </ul>
+              </ol>
               <a href="/new/task">Add new task</a>          
           </div>
         </div>

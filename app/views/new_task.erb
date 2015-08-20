@@ -4,6 +4,14 @@
     <div class="container">
 <form action="/new/task" class="form-signin" method="POST">
   <input type="text" placeholder="Task" name="todo">
+	<select name="priority">
+	  <option value=0>Add priority</option>
+	  <option value=1>Least Priority</option>
+	  <option value=2>Low Priority</option>
+	  <option value=3>Medium Priority</option>
+	  <option value=4>Higher Priority</option>
+	  <option value=5>Highest Priority</option>
+	</select> 
   <button type="submit" class="btn">Submit</button>
 </form>
 
