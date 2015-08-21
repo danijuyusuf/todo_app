@@ -4,7 +4,7 @@
           <h2 class="sub-header dashboard">Dashboard</h2>
           <div class="table-responsive">
 
-            <ol id="todo-list" class="unstyled">
+            <ol id="todo-list" class="unstyled candara">
                 <% @tasks.each do |task| %>
                   <li id="<%= task[:id] %>">
                   <span class="task">
@@ -13,7 +13,7 @@
                   (priority => <%=task[:priority] %>)
                   <span class="pull-right">
 
-                    <a href="#" class="btn done"><%= task[:done] ? "Not done" : "Done"%></a>
+                    <a href="#" class="btn done"><% task[:done] ? "Not done" : "Done"%></a>
                     <a href="/delete/<%= task[:id] %>" class="btn btn-danger">Delete</a>
                   </span>
                   
@@ -21,6 +21,6 @@
                   <br />
                 <% end %>
               </ol>
-              <a href="/new/task">Add new task</a>          
+              <a href="/new/task" class="candara">Add new task</a>          
           </div>
         </div>

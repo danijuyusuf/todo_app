@@ -90,3 +90,13 @@ body {
 .welcome {
   font-family: 'Libre Baskerville', serif;
 }
+
+.candara {
+  font-family: candara;
+  font-size: 16px;
+  
+}
+
+.navbar-right {
+  font-family: 'Libre Baskerville', serif;
+}

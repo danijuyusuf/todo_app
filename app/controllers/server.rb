@@ -46,7 +46,7 @@ post '/login/attempt' do
 end
 
 get '/new/task' do
-	@title = "Start by adding a todo task"
+	@title = "Kindly add a todo task with priority"
 	erb :new_task
 end
 
@@ -73,14 +73,7 @@ post '/new/task' do
 	redirect '/dashboard'
 end
 
-post '/done' do
-  task = Task.first(:id => params[:id])
-  task.done = !task.done
-  task.save
-  content_type 'application/json'
-  value = task.done ? 'done' : 'not done'
-  { :id => params[:id], :status => value }.to_json
-end
+
 
 get '/delete/:id' do
   @task = Task.first(:id => params[:id].to_i)

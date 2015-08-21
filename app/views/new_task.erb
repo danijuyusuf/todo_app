@@ -1,19 +1,20 @@
 
   <body>
 
-    <div class="container">
-<form action="/new/task" class="form-signin" method="POST">
-  <input type="text" placeholder="Task" name="todo">
-	<select name="priority">
-	  <option value=0>Add priority</option>
-	  <option value=1>Least Priority</option>
-	  <option value=2>Low Priority</option>
-	  <option value=3>Medium Priority</option>
-	  <option value=4>Higher Priority</option>
-	  <option value=5>Highest Priority</option>
-	</select> 
-  <button type="submit" class="btn">Submit</button>
-</form>
+    <div class="container candara">
+    	<p><%=@title%></p>
+			<form action="/new/task" class="form-signin" method="POST">
+			  <input type="text" placeholder="Task" name="todo">
+				<select name="priority">
+				  <option value=0>Priority</option>
+				  <option value=1>Least</option>
+				  <option value=2>Low</option>
+				  <option value=3>Medium</option>
+				  <option value=4>Higher</option>
+				  <option value=5>Highest</option>
+				</select><br/>
+			  <button type="submit" class="btn">Submit</button>
+			</form>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
