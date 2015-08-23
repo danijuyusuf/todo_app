@@ -3,24 +3,23 @@
           <h3 class="welcome">Welcome, <%=@current_user.firstname%>!</h3>
           <h2 class="sub-header dashboard">Dashboard</h2>
           <div class="table-responsive">
-
-            <ol id="todo-list" class="unstyled candara">
-                <% @tasks.each do |task| %>
-                  <li id="<%= task[:id] %>">
-                  <span class="task">
-                    <%= task[:done] ? "<del>#{task[:todo]}</del>" : task[:todo] %>
-                  </span>
-                  (priority => <%=task[:priority] %>)
-                  <span class="pull-right">
-
-                    
-                    <a href="/delete/<%= task[:id] %>" class="btn btn-danger">Delete</a>
-                  </span>
-                  
-                  </li>
-                  <br />
-                <% end %>
-              </ol>
+            <table class="unstyled candara">
+            <tr>
+              <th>Id</th>
+              <th>Task todo</th>
+              <th>Priority</th>
+              <th>Delete</th>
+            <tr>
+            <tr>
+              <% @tasks.each do |task| %>
+              <td><%= task[:id] %>.</td>
+              <td><%= task[:done] ? "<del>#{task[:todo]}</del>" : task[:todo] %></td>
+              <td> <%=task[:priority] %></td>
+              <td><a href="/delete/<%= task[:id] %>" class="btn btn-danger">Delete</a></td>
+              <% end %>
+            <tr>
+            </table>
+            
               <a href="/new/task" class="candara">Add new task</a>          
           </div>
         </div>

@@ -100,3 +100,7 @@ body {
 .navbar-right {
   font-family: 'Libre Baskerville', serif;
 }
+
+table > tr {
+  height: 30px;
+}
