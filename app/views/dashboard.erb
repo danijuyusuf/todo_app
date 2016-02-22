@@ -16,6 +16,8 @@
               <td><%= task[:done] ? "<del>#{task[:todo]}</del>" : task[:todo] %></td>
               <td> <%=task[:priority] %></td>
               <td><a href="/delete/<%= task[:id] %>" class="btn btn-danger">Delete</a></td>
+
+              
               <% end %>
             <tr>
             </table>
