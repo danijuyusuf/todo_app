@@ -1,9 +1,9 @@
-ENV["RACK_ENV"] ||= "test"
+ENV['RACK_ENV'] ||= 'test'
 
 require 'bundler'
 Bundler.require
 
-require_relative "../../config/environment"
+require_relative '../../config/environment'
 require 'minitest/autorun'
 require 'rack/test'
 
