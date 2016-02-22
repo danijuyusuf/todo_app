@@ -16,6 +16,6 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each { |file| require file }
 class Server < Sinatra::Base
   set :method_override, true
   set :root, APP_ROOT.to_path
-  set :views, File.join(Server.root, "app", "views")
-  set :public_folder, File.join(Server.root, "app", "public")
+  set :views, File.join(Server.root, 'app', 'views')
+  set :public_folder, File.join(Server.root, 'app', 'public')
 end
