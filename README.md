@@ -1,4 +1,4 @@
-Todo Application
+# Todo Application
 ================
 
 ## Description
@@ -7,4 +7,3 @@ Todo application manages  your todo items making sure you never miss your appoin
 ## Credits
 
 - Yusuf Omokayode Daniju
-- The Andela crew
